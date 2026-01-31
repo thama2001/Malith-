@@ -6,19 +6,76 @@ window.addEventListener('load', () => {
     }, 500);
 });
 
+// ========== Language Switcher ==========
+let currentLang = localStorage.getItem('lang') || 'en';
+
+const textArrays = {
+    en: [
+        'Kitchen Assistant',
+        'Grill Assistant',
+        'Hospitality Professional',
+        'Team Player'
+    ],
+    pt: [
+        'Assistente de Cozinha',
+        'Assistente de Grelhados',
+        'Profissional de Hotelaria',
+        'Trabalho em Equipa'
+    ]
+};
+
+function switchLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+
+    // Update all translatable elements
+    document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute(`data-${lang}`);
+        if (text) {
+            el.textContent = text;
+        }
+    });
+
+    // Update active button
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-lang') === lang) {
+            btn.classList.add('active');
+        }
+    });
+
+    // Reset typed text with new language
+    textIndex = 0;
+    charIndex = 0;
+    isDeleting = false;
+}
+
+// Initialize language switcher
+document.addEventListener('DOMContentLoaded', () => {
+    // Set initial language
+    switchLanguage(currentLang);
+
+    // Add click handlers to language buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const lang = btn.getAttribute('data-lang');
+            switchLanguage(lang);
+        });
+    });
+});
+
 // ========== Typed Text Effect ==========
 const typedTextElement = document.getElementById('typed-text');
-const textArray = [
-    'Kitchen Assistant',
-    'Grill Assistant',
-    'Hospitality Professional',
-    'Team Player'
-];
 let textIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
 
+function getTextArray() {
+    return textArrays[currentLang] || textArrays.en;
+}
+
 function type() {
+    const textArray = getTextArray();
     const currentText = textArray[textIndex];
 
     if (isDeleting) {

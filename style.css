@@ -180,6 +180,53 @@ ul {
     gap: 35px;
 }
 
+/* Language Switcher */
+.lang-switcher {
+    display: flex;
+    gap: 5px;
+    margin-left: 20px;
+}
+
+.lang-btn {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.lang-btn:hover {
+    border-color: var(--primary);
+    color: var(--white);
+}
+
+.lang-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--white);
+}
+
+.navbar.scrolled .lang-btn {
+    border-color: var(--gray-200);
+    color: var(--text);
+}
+
+.navbar.scrolled .lang-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.navbar.scrolled .lang-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--white);
+}
+
 .nav-link {
     color: rgba(255, 255, 255, 0.9);
     font-weight: 500;
@@ -1352,6 +1399,17 @@ section {
     .hamburger {
         display: flex;
         z-index: 1001;
+    }
+
+    .lang-switcher {
+        position: absolute;
+        top: 20px;
+        right: 70px;
+    }
+
+    .lang-btn {
+        padding: 6px 10px;
+        font-size: 0.75rem;
     }
 
     .hamburger.active span:nth-child(1) {
